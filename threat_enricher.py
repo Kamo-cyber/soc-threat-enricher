@@ -95,9 +95,9 @@ def export_threat_csv(threat_list):
 
             logging.info("File accessed for reading.")
 
-            return reader
+            return list(reader)
 
 if __name__ == "__main__":
     hashes = extract_indicators("data/raw_endpoint_logs.txt")
-    list = enrich_threat_data(hashes)
-    export_threat_csv(list)
+    list_ = enrich_threat_data(hashes)
+    export_threat_csv(list_)
