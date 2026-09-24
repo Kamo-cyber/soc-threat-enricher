@@ -32,7 +32,6 @@ def extract_indicators(file):
 
             return (unique_set_hashes)
 
-
 def enrich_threat_data(unique_set_hashes):
 
     Threat_list = []
