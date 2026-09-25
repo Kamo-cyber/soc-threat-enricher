@@ -1,5 +1,6 @@
 import re
 import csv
+import os
 from pathlib import Path
 import logging
 import requests
@@ -33,9 +34,10 @@ def extract_indicators(file):
             return (unique_set_hashes)
 
 def enrich_threat_data(unique_set_hashes):
-
+    
+    api_key = os.environ.get("VT_API_KEY")
     Threat_list = []
-    headers = {"x-apikey": "bae293816ad20e036bd20996e0ead3e087df929305a50206a4b6a2c3064b994e"}
+    headers = {"x-apikey": api_key}
 
     for hash in unique_set_hashes:
         virustotal_url = f"https://www.virustotal.com/api/v3/files/{hash}"
