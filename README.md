@@ -70,3 +70,19 @@ Stepping into a cleaner software architecture introduced some tough implementati
 * **The Test Dataset:** The hashes embedded inside the `raw_endpoint_logs.txt` sandbox are simulated test strings generated specifically to test the regular expression loops. 
 * **VirusTotal API Responses:** Because these sandbox tokens do not exist in active global malware indexes, the VirusTotal API accurately returns a `404 Not Found` status code for each lookup request.
 * **Graceful Skipping:** The script catches these `404` states gracefully, logs the event, and purposefully skips writing data rows to `enriched_threats.csv` since no actual malicious verdicts were returned. As a result, the generated spreadsheet will only show the tracking headers. This confirms that the pipeline is fully operational and successfully filtering out non-malicious indicators.
+
+
+### Security Update: Secret Management
+
+To align this project with secure development practices, the codebase has been upgraded to protect authentication tokens:
+
+* **Removed Hardcoded Keys:** Eliminated all raw API strings from the script to prevent exposure on public repositories.
+* **Safer Key Loading:** Re-engineered the pipeline to use Python's native `os` library (`os.environ.get()`), fetching the API key directly from the host operating system at runtime.
+* **Defensive Error Handling:** Implemented safe lookup methods so that if the environment variable is missing, the script handles the empty state cleanly without crashing.
+
+#### Configuration Setup
+
+Set the variable in your active terminal session before running the script:
+
+* **Windows (PowerShell):** `$env:VT_API_KEY="your_api_key_here"`
+* **Linux / macOS:** `export VT_API_KEY="your_api_key_here"`
